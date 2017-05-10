@@ -35,7 +35,6 @@ config/*
 
 web/archivos/*
 
-
 assets/*
 !assets/.gitignore
 protected/runtime/*
