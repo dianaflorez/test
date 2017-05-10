@@ -1,0 +1,53 @@
+body{
+
+}
+.rwd {
+    width: 100%;
+    overflow: auto;
+    display: block;
+}
+
+.navbar-brand {
+    margin-top: -12px;
+}
+
+.thumb1 {
+  background: url(blah.jpg) 50% 50% no-repeat; /* 50% 50% centers image in div */
+  width: 250px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.crop1{
+  display: inline-block;
+    height: 200px;
+    width: 90%;
+    overflow: hidden;
+}
+
+.crop1 img{
+    width: 100%;
+
+}
+
+.crop2 img{
+    height: 80%;
+    overflow: hidden;
+
+}
+
+td{
+  padding: 10px;
+}
+.crop{
+    display: inline-block;
+    height: 170px;
+    margin: 7px;
+}
+.cropANTES{
+    display: inline-block;
+    height: 170px;
+    width: 300px;
+    overflow: hidden;
+    margin: 10px;
+}
