@@ -287,9 +287,43 @@ class UsuarioController extends Controller
         $model = $this->findModel($id);
         $tipoUsuario = ArrayHelper::map(Role::find()->all(), 'id', 'nombre');
         $tipoIden = ArrayHelper::map(TipoIdentificacion::find()->all(), 'id', 'nombre');
+        $model->clave_repeat = $model->clave;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+          if($model->validate())
+          {
+            //Preparamos la consulta para guardar el usuario
+            $table = $this->findModel($id);
+            $table->nombres     = trim(ucwords($model->nombres));
+            $table->apellidos   = trim(ucwords($model->apellidos));
+            $table->id_tipo_identificacion      = $model->id_tipo_identificacion;
+            $table->id_role      = $model->id_role;
+
+            $table->identificacion = $model->identificacion;
+            $table->email       = trim(strtolower($model->email));
+            $table->username       = trim(strtolower($model->email));
+
+            //Encriptamos el password
+            $table->clave       = crypt($model->clave, Yii::$app->params["salt"]);
+            $table->clave_repeat       = crypt($model->clave_repeat, Yii::$app->params["salt"]);
+
+            //Si el registro es guardado correctamente
+            if ($table->save())
+            {
+              return $this->redirect(['view', 'id' => $table->id]);
+
+            }else{
+              $msg = "Ha ocurrido un error al llevar a cabo tu registro--";
+                echo "<br /><br /><br /><br /><br /><br /><br />";
+                var_dump($table->getErrors());
+            }
+          }else{
+            echo "<br /><br /><br /><br /><br /><br /><br />ll";
+
+            $msg = "Ha ocurrido un error al llevar a cabo tu registro";
+          }
+
         } else {
             return $this->render('update', [
                 'model' => $model,
